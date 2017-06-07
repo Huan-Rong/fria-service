@@ -1,6 +1,7 @@
 package com.hstt.bean;
 
 import java.sql.Blob;
+import java.util.Date;
 
 /**
  * 人脸模板类。
@@ -10,6 +11,8 @@ import java.sql.Blob;
  * 包含以下：
  *      人脸源图，源图的压缩图，源图的环境图
  *
+ * @author zhenghuanrong@yeah.net
+ * @since 2017/6/7
  *
  */
 public class BdFaceDO {
@@ -23,4 +26,104 @@ public class BdFaceDO {
 
     private BdPersonDO bdPersonDO; //所属人员
     private BdLibraryDO bdLibraryDO; //所属人脸库
+
+    private Integer type; //类型：未定义。
+    private Integer status; //状态：未定义。
+    private Date createdTime; //创建时间
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Blob getOriginalImg() {
+        return originalImg;
+    }
+
+    public void setOriginalImg(Blob originalImg) {
+        this.originalImg = originalImg;
+    }
+
+    public Blob getCompressedImg() {
+        return compressedImg;
+    }
+
+    public void setCompressedImg(Blob compressedImg) {
+        this.compressedImg = compressedImg;
+    }
+
+    public Blob getEnvironmentImg() {
+        return environmentImg;
+    }
+
+    public void setEnvironmentImg(Blob environmentImg) {
+        this.environmentImg = environmentImg;
+    }
+
+    public String getOriginalImgPath() {
+        return originalImgPath;
+    }
+
+    public void setOriginalImgPath(String originalImgPath) {
+        this.originalImgPath = originalImgPath;
+    }
+
+    public String getCompressedImgPath() {
+        return compressedImgPath;
+    }
+
+    public void setCompressedImgPath(String compressedImgPath) {
+        this.compressedImgPath = compressedImgPath;
+    }
+
+    public String getEnvironmentImgPath() {
+        return environmentImgPath;
+    }
+
+    public void setEnvironmentImgPath(String environmentImgPath) {
+        this.environmentImgPath = environmentImgPath;
+    }
+
+    public BdPersonDO getBdPersonDO() {
+        return bdPersonDO;
+    }
+
+    public void setBdPersonDO(BdPersonDO bdPersonDO) {
+        this.bdPersonDO = bdPersonDO;
+    }
+
+    public BdLibraryDO getBdLibraryDO() {
+        return bdLibraryDO;
+    }
+
+    public void setBdLibraryDO(BdLibraryDO bdLibraryDO) {
+        this.bdLibraryDO = bdLibraryDO;
+    }
+
+    public Integer getType() {
+        return type;
+    }
+
+    public void setType(Integer type) {
+        this.type = type;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
+
+    public Date getCreatedTime() {
+        return createdTime;
+    }
+
+    public void setCreatedTime(Date createdTime) {
+        this.createdTime = createdTime;
+    }
 }
