@@ -1,4 +1,4 @@
-package com.hstt.bean;
+package com.hstt.bean.recognition;
 
 import java.sql.Blob;
 import java.util.Date;
@@ -19,7 +19,7 @@ public class BdFaceDO {
     private Long id; //PK
     private Blob originalImg; //源图：Java 服务接收的所有的图片数据都为源图。
     private Blob compressedImg; //压缩图：Java 程序在内部将源图压缩得到压缩图。
-    private Blob environmentImg; //环境图
+    private Blob environmentImg; //环境图：用于实时建模。
     private String originalImgPath; //源图路径
     private String compressedImgPath; //压缩图路径
     private String environmentImgPath; //环境图路径

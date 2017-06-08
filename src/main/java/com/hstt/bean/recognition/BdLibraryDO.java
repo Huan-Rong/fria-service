@@ -1,4 +1,4 @@
-package com.hstt.bean;
+package com.hstt.bean.recognition;
 
 import java.util.Date;
 
