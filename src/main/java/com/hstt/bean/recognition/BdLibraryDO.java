@@ -1,5 +1,7 @@
 package com.hstt.bean.recognition;
 
+import com.hstt.bean.sys.SysOrganizationDO;
+
 import java.util.Date;
 
 /**
@@ -16,45 +18,7 @@ public class BdLibraryDO {
     private String libraryName; //库名
     private Integer libraryType; //类别：未定义。
     private Integer libraryStatus; //状态：未定义。
+    private SysOrganizationDO sysOrganizationDO; //人脸库所属组织架构，默认为创建该人脸库的用户所在的组织架构。该属性不可为空。
     private Date createdTime; //创建时间
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getLibraryName() {
-        return libraryName;
-    }
-
-    public void setLibraryName(String libraryName) {
-        this.libraryName = libraryName;
-    }
-
-    public Integer getLibraryType() {
-        return libraryType;
-    }
-
-    public void setLibraryType(Integer libraryType) {
-        this.libraryType = libraryType;
-    }
-
-    public Integer getLibraryStatus() {
-        return libraryStatus;
-    }
-
-    public void setLibraryStatus(Integer libraryStatus) {
-        this.libraryStatus = libraryStatus;
-    }
-
-    public Date getCreatedTime() {
-        return createdTime;
-    }
-
-    public void setCreatedTime(Date createdTime) {
-        this.createdTime = createdTime;
-    }
 }

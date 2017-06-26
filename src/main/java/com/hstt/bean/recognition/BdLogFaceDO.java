@@ -1,6 +1,6 @@
 package com.hstt.bean.recognition;
 
-import java.sql.Blob;
+import java.util.Date;
 
 /**
  * @author zhenghuanrong@yeah.net
@@ -8,6 +8,8 @@ import java.sql.Blob;
  */
 public class BdLogFaceDO {
     private Long id; //PK
-    private Blob logFaceImg; //比对小图
-    private String logFaceImgPath; //比对小图路径
+    private String logFaceImgPath; //比对人脸小图路径
+    private Date createdTime; //创建时间
+
+    private BdLogDO bdLogDO;
 }

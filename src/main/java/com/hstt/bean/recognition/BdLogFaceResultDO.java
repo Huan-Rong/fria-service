@@ -5,7 +5,7 @@ import java.util.Date;
 /**
  * 比对结果。
  *
- *      涉及的功能：多库比对，多库比对记录查询，人脸相关性
+ *     涉及的功能：多库比对，多库比对记录查询，人脸相关性
  *
  * @author zhenghuanrong@yeah.net
  * @since 2017/6/8
@@ -21,7 +21,9 @@ public class BdLogFaceResultDO {
     private Integer status; //告警状态：1表示告警（但未处理），2表示不告警，3表示告警已处理。
     private Date createdTime; //创建时间，即比对时间。
 
+    private BdLogFaceDO bdLogFaceDO;
     private BdFaceDO bdFaceDO; //比对结果模板：通过该属性可以得到人员基础信息和图片数据；这里需要注意，删除模板的同时会删除所有的比对结果记录。
+
 
 
 
