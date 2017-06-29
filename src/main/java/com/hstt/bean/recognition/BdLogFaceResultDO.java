@@ -7,8 +7,7 @@ import java.util.Date;
  *
  *     涉及的功能：多库比对，多库比对记录查询，人脸相关性
  *
- * @author zhenghuanrong@yeah.net
- * @since 2017/6/8
+ * @author HuanRong(zhenghuanrong@yeah.net)
  */
 public class BdLogFaceResultDO {
     private Long id; //PK

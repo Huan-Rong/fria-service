@@ -7,8 +7,7 @@ import java.util.Date;
  *
  * 该类包含了某一自然人的相关基础信息，如姓名、性别、身份证号、出生年月、住址等等，但是不包含其人脸模板（图片）。
  * 为了适应更多的应用场景，该类只要求 id 和 createdTime 为必须字段。
- * @author zhenghuanrong@yeah.net
- * @since 2017/6/7
+ * @author HuanRong(zhenghuanrong@yeah.net)
  */
 public class BdPersonDO {
     private Long id; //PK

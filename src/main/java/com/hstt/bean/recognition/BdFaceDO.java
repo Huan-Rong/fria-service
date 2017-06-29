@@ -15,9 +15,7 @@ import java.util.Date;
  * 压缩图：Java 程序在内部将源图压缩得到压缩图。
  * 环境图
  *
- * @author zhenghuanrong@yeah.net
- * @since 2017/6/7
- *
+ * @author HuanRong(zhenghuanrong@yeah.net)
  */
 public class BdFaceDO {
     private Long id; //PK
@@ -31,5 +29,6 @@ public class BdFaceDO {
     private Integer type; //类型：未定义。
     private Integer status; //状态：未定义。
     private Date createdTime; //创建时间
+    private BdCameraDO bdCameraDO; //实时建模所用摄像枪，可能为 null.
 
 }

@@ -3,8 +3,7 @@ package com.hstt.bean.recognition;
 import java.util.Date;
 
 /**
- * @author zhenghuanrong@yeah.net
- * @date 2017/6/8
+ * @author HuanRong(zhenghuanrong@yeah.net)
  */
 public class BdLogDO {
     private Long id; //PK

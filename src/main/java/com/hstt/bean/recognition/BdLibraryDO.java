@@ -10,9 +10,8 @@ import java.util.Date;
  * 一个人脸模板只属于一个人脸库。一个人脸库可以含有多张人脸模板。
  * 一个人可以有多张人脸模板，它们可以同时属于同一个库，也可以属于多个不同的库。
  *
- * @author zhenghuanrong@yeah.net
- * @since 2017/6/7
- */
+ * @author HuanRong(zhenghuanrong@yeah.net)
+*/
 public class BdLibraryDO {
     private Long id; //PK
     private String libraryName; //库名
