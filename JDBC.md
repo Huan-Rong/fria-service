@@ -30,5 +30,94 @@ JDBC 驱动程序是数据库产商依据 JDBC Driver API 开发出来的实现�
 多数数据库厂商已经支持允许客户程序通过网络直接与数据库通信的网络协议。
 这种类型的驱动程序完全使用 Java 编写，通过与数据库建立的 Socket 连接，采用具体与厂商的网络协议把 JDBC 调用转换为直接连接的网络调用。
 
-
 [存在即真理：JDBC 的 4 种驱动程序](http://blog.csdn.net/xad707348125/article/details/44984093)
+
+## JDBC API
+JDBC API 是一组面向应用程序开发人员的 API，主要包含以下接口：
+* DriverManager
+* Connection
+* Statement
+* PreparedStatement
+* CallableStatement
+## Driver
+* java.sql.Driver 接口是所有 JDBC 驱动程序需要实现的接口。这个接口是提供给数据库产商使用的，不同的数据库产商提供不同的实现。
+* 在程序中不需要直接去访问实现了 Driver 接口的类，而是由驱动程序管理类 java.sql.DriverManager 去调用这些 Driver 的具体实现。
+* 应当说，应用程序开发人员不需要调用 JDBC Driver API 这一层次的所有的接口。
+## 加载与注册 JDBC 驱动
+* 加载 JDBC 驱动需要调用 **Class 类的静态方法 forName()**，向其传递要加载的 JDBC 驱动的类名
+* DriverManager 类是驱动程序管理器类，负责管理驱动程序
+* 通常不用显示调用 DriverManager 类的 registerDriver() 方法来注册驱动程序类的实例，因为 Driver 接口的驱动程序类都包含了静态代码块；
+这个静态代码块会调用 DriverManager.regitsterDriver() 方法来注册自身的一个实例。
+## 建立连接
+* 可以调用 DriverManager 类的 getConnection() 方法建立到数据库的连接。
+* JDBC URL 用于标志一个被注册的驱动程序，驱动程序管理器通过这个 URL 选择正确的驱动程序，从而建立到数据库的连接。
+* JDBC URL 的标准由三部分组成，各部分间用冒号分隔
+    * jdbc:<子协议>:<子名称>
+    * 协议：JDBC URL 中的协议总是 jdbc。
+    * 子协议：子协议用于标识一个数据库驱动程序。
+    * 子名称：一种标识数据库的方法。子名称可以依据不同的子协议而变化，子名称为了定位数据库提供足够的信息。
+    
+## 访问数据库
+* 数据库连接被用于向数据库服务器发送命令和 SQL 语句。
+* 在 java.sql 包中有 3 个接口分别定义了对数据库调用的不同方式：
+    * Statement：用于执行静态的 SQL 语句
+    * PreparedStatement：用于执行预编译的 SQL 语句
+    * CallableStatement：用于执行数据库中的存储过程的调用
+    
+## Statement
+* 通过调用 Connection.createStatement() 方法创建该对象
+* Statement 用于执行静态的 SQL 语句，并且返回执行结果
+* Statement 接口中定义了下列方法用于执行 SQL 语句
+    * ResultSet executeQuery(String sql)
+    * int executeUpdate(String sql)
+    
+## ResultSet
+* 通过调用 Statement.executeQuery() 方法创建该对象
+* ResultSet 用于以逻辑表格的形式封装执行数据库操作后的结果集
+* ResultSet 接口由数据库产商实现
+* ResultSet 维护了一个指向当前数据行的游标，初始的时候，游标在第一行之前，可以通过 ResultSet.next() 方法移动到下一行
+* ResultSet 接口的常用方法：
+    * boolean next()
+    * getString()
+    
+注意 Java 数据类型与 SQL 数据类型之间的转换。
+
+## SQL 注入攻击
+* SQL 注入是利用系统没有对用户输入的数据进行充分的检查，而在用户输入数据中注入非法的 SQL 语句段或命令，从而利用系统的 SQL 引擎完成恶意的行为的做法。
+* 对于 Java 而言，要防范 SQL 注入，只需要使用 PreparedStatement 取代 Statement 即可。
+## PreparedStatement
+* 通过调用 Connection.preparedStatement() 方法获取 preparedStatement 对象
+* PreparedStatement 是 Statement 的子接口，它表示一条预编译过得 SQL 语句
+* PreparedStatement 对象所代表的是 SQL 语句中的参数用问号来表示，然后可通过调用 PreparedStatement 对象的 setXXX() 方法来设置这些参数。
+* setXXX() 方法有两个参数，第一个参数是要设置的 SQL 语句中的参数的索引，索引值从 1 开始，第二个参数是这事的 SQL 语句中的参数的值。
+## PreparedStatement VS Statement
+* PreparedStatement: DBMS 会对预编译语句提供性能优化
+* PreparedStatement：可以防止 SQL 注入
+## 使用 JDBC 驱动程序处理元数据
+* 通过 Connection 对象可以获取 DatabaseMetaData 对象
+* 通过 DatabaseMetaData 对象可以获取有关数据库管理系统的各种信息，包括数据库的各个表、表的列信息、数据类型、触发器、存储过程等各方面的信息。
+* DatabaseMetaData 提供了以下方法
+    * getURL()：返回数据库的URL
+    * getUserName()：返回连接当前数据库管理系统的用户名
+    * isReadOnly()：表示数据库是否只允许读操作
+    * getDatabaseProductName()：返回数据库的产品名称
+    * getDatabaseProductVersion()：返回数据库的版本号
+    * getDriverName()：返回驱动程序的名称
+    * getDriverVersion()：返回驱动程序的版本号
+ 
+## ResultSetMetaData
+ResultSetMetaData 提供了获取 ResultSet 对象中列的类型和属性信息的方法
+* getColumnName(int column)：获取指定列的名称
+* getColumnCount()：返回当前 ResultSet 对象中的列数
+* getColumnTypeName(int column)：检索指定列的数据库特定的类型名称
+* getColumnDisplaySize(int column)：指示指定列的最大标准宽带，以字符为单位
+* isNullable(int column)：指示指定列中的值是否可以为 null
+* isAutoIncrement(int column)：指示是否自动为指定列进行编号，这样这些列仍然是只读
+## 反射与 ResultSetMetaData
+## Lob
+## 数据库事务
+事务是一组逻辑处理单元，使得数据库从一种状态变换到另一种状态。数据库事务具有 ACID 属性。
+* Atomicity 原子性：指事务是一个不可分割的单元，事务中的操作要么全都发生，要么都不发生。
+* Consistency 一致性：指事务必须使数据库从一个一致性状态变换到另一个一致性状态。
+* Isolation 隔离性：指一个事务的执行不能被其他事务干扰。即一个事务内部的操作及使用的数据对并发的其他事务是隔离的，并发执行的各个事务不能相互干扰。
+* Durability 持久性：指一个事务一旦被提交，它对数据库中数据的改变就是永久性的，接下来的其他操作和数据库故障不应该对其有任何影响。
