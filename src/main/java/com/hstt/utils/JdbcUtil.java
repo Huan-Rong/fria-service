@@ -5,10 +5,7 @@ import oracle.jdbc.driver.OracleDriver;
 import javax.management.InstanceNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.sql.Connection;
-import java.sql.Driver;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.Properties;
 
 /**
@@ -94,5 +91,47 @@ public class JdbcUtil {
      */
     public static Connection getConnection3() throws SQLException {
         return DriverManager.getConnection(JDBC_URL, USER, PASSWORD);
+    }
+
+    /**
+     * 释放数据库连接资源
+     * @param statement
+     * @param connection
+     */
+    public static void release(Statement statement, Connection connection) {
+        //问：为什么要释放 Statement？为什么不能直接释放 Connection？如果两次释放都失败应当如何处理？
+        if (statement != null) {
+            try {
+                statement.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        if (connection != null) {
+            try {
+                connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    /**
+     * 通用的更新方法
+     * @param sql
+     *          只能是 INSERT/UPDATE/DELETE 语句，SELECT 语句使用该方法。
+     * @return
+     * @throws SQLException
+     */
+    public static void update(String sql) throws SQLException {
+        Connection connection = null;
+        Statement statement = null;
+        try {
+            connection = getConnection3();
+            statement = connection.createStatement();
+            statement.executeUpdate(sql);
+        } finally {
+            release(statement, connection);
+        }
     }
 }
