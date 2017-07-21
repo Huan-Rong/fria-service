@@ -9,6 +9,15 @@ import java.sql.*;
 import java.util.Properties;
 
 /**
+ * 该类是 JDBC 的工具类，提供了以下方法。
+ *
+ * <p>获取数据库连接的方法</p>
+ * <p>释放数据库连接资源的方法</p>
+ * <p>通用的更新方法，支持 insert, update, delete 操作</p>
+ * <p>通用的查询方法</p>
+ *
+ * 疑问：获取数据库连接的方法应该与其他方法独立开吗？
+ *
  * @author HuanRong(zhenghuanrong@yeah.net)
  */
 public class JdbcUtil {
@@ -28,12 +37,13 @@ public class JdbcUtil {
             //TODO:日志处理并提前结束静态代码块的执行
         }
         try {
+            //该方法是否会自动关闭 inputStream？
             properties.load(inputStream);
             DRIVER_CLASS_NAME = properties.getProperty("driverClassName");
             JDBC_URL = properties.getProperty("jdbcUrl");
             USER = properties.getProperty("user");
             PASSWORD = properties.getProperty("password");
-            //加载数据库驱动类，并且注册该驱动。
+            //加载数据库驱动类，并且注册该驱动的实例。
             //DriverManager.registerDriver(Class.forName(DRIVER_CLASS_NAME).newInstance());
             Class.forName(DRIVER_CLASS_NAME);
         } catch (IOException e) {
